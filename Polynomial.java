@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Polynomial{
     
     // If you don't add visibility keyword, it defaults to package private
@@ -17,7 +19,7 @@ class Polynomial{
     public Polynomial add(Polynomial polynomial){
         double[] bigger_arr;
         double[] smaller_arr;
-        if (polynomial.length > coefficients.length){
+        if (polynomial.coefficients.length > coefficients.length){
             bigger_arr = Arrays.copyOf(polynomial.coefficients, polynomial.coefficients.length);
             smaller_arr = coefficients;
         }
