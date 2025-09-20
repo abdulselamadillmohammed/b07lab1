@@ -29,7 +29,22 @@ class Polynomial{
             bigger_arr[i] += smaller_arr[i];
         }
         return new Polynomial(bigger_arr);
+    }
 
+    public double evaluate(double value){
+        double sum = 0;
+        for (int i = 0; i < coefficients.length; i++){
+            sum += coefficients[i] * Math.pow(value, i);
+        }
+        return sum;
+    }
+
+    public boolean hasRoot(double possibleRoot){
+        boolean is_root = false;
+        if (evaluate(possibleRoot) == 0){
+            is_root = true;
+        }
+        return is_root;
     }
 
 }
