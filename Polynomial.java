@@ -30,25 +30,73 @@ class Polynomial{
         }
     }
 
+
+    // Save point:a49b170f02e9235959fad5e0e917a24549982b93
+
     public Polynomial add(Polynomial polynomial){
-        double[] bigger_arr;
-        double[] smaller_arr;
+        // LOCAL: coefficients
+        // LOCAL: exponents
+        // INCOMING: polynomial.coefficients
+        // INCOMING: polynomial.exponents
 
-        if (polynomial.coefficients.length > coefficients.length){
-            bigger_arr = Arrays.copyOf(polynomial.coefficients, polynomial.coefficients.length);
-            smaller_arr = coefficients;
-        }
-        // No need to watch out for "this" as there is no naming conflict. 
-        else{
-            bigger_arr = Arrays.copyOf(coefficients, coefficients.length);
-            smaller_arr = polynomial.coefficients;
-        }
+        int counter = 0;
+        // Logically if you're only accounting for non zero coeffs, then it shouldn't matter if you take the len of expos or coeffs
 
-        for (int i = 0; i < smaller_arr.length; i++){
-            bigger_arr[i] += smaller_arr[i];
-        }
+        // These act as upper bounds
+        int local_pointer = coefficents.length;
+        int incoming_pointer = polynomial.coefficents.length;
 
-        return new Polynomial(bigger_arr);
+        double summed_coeffs = new double[local_pointer + incoming_pointer];
+        int summed_expos = new int[local_pointer + incoming_pointer];
+
+        int local_start = 0;
+        int incoming_start = 0;
+
+        while ((local_start != local_pointer) && (incoming_start != incoming_pointer)) {
+            if (exponents[local_start] == polynomial.exponents[incoming_start]){
+                summed_coeffs[counter] = coefficents[local_start] + polynomial.coefficents[incoming_start];
+                summed_expos[counter] = exponents[local_start] + polynomial.coefficents[incoming_start];
+
+                incoming_start++;
+                local_start++;
+                counter++;
+            }
+            else if (exponents[local_start] < polynomial.exponents[incoming_start]){
+                summed_coeffs[counter] = polynomial.coefficents[incoming_start];
+                summed_expos[counter] =  polynomial.coefficents[incoming_start];
+                incoming_start++;
+                counter++;
+            }
+            else{
+                summed_coeffs[counter] = coefficents[local_start];
+                summed_expos[counter] = exponents[local_start];
+                local_start++;
+                counter++;
+            }
+
+        }
+        
+
+
+
+        // double[] bigger_arr;
+        // double[] smaller_arr;
+
+        // if (polynomial.coefficients.length > coefficients.length){
+        //     bigger_arr = Arrays.copyOf(polynomial.coefficients, polynomial.coefficients.length);
+        //     smaller_arr = coefficients;
+        // }
+        // // No need to watch out for "this" as there is no naming conflict. 
+        // else{
+        //     bigger_arr = Arrays.copyOf(coefficients, coefficients.length);
+        //     smaller_arr = polynomial.coefficients;
+        // }
+
+        // for (int i = 0; i < smaller_arr.length; i++){
+        //     bigger_arr[i] += smaller_arr[i];
+        // }
+
+        // return new Polynomial(bigger_arr);
     }
 
     public double evaluate(double value){
