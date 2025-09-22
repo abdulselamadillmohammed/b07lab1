@@ -6,7 +6,7 @@ class Polynomial{
     
     // If you don't add visibility keyword, it defaults to package private
     
-    // Supposed to contain non zero coefficents -> 
+    // Supposed to contain non zero coefficients -> 
     // /Because no need to increment if you have exponents array
 
     // Eg. 6 - 2x + 5x^3
@@ -22,7 +22,7 @@ class Polynomial{
         coefficients = new double[coeffs.length];
         exponents = new int[expos.length];
 
-        for (int i = 0; i < coefficents.length; i++){
+        for (int i = 0; i < coefficients.length; i++){
             coefficients[i] = coeffs[i];
         }
         for (int i = 0; i < exponents.length; i++){
@@ -43,32 +43,32 @@ class Polynomial{
         // Logically if you're only accounting for non zero coeffs, then it shouldn't matter if you take the len of expos or coeffs
 
         // These act as upper bounds
-        int local_pointer = coefficents.length;
-        int incoming_pointer = polynomial.coefficents.length;
+        int local_pointer = coefficients.length;
+        int incoming_pointer = polynomial.coefficients.length;
 
-        double summed_coeffs = new double[local_pointer + incoming_pointer];
-        int summed_expos = new int[local_pointer + incoming_pointer];
+        double[] summed_coeffs = new double[local_pointer + incoming_pointer];
+        int[] summed_expos = new int[local_pointer + incoming_pointer];
 
         int local_start = 0;
         int incoming_start = 0;
 
         while ((local_start != local_pointer) && (incoming_start != incoming_pointer)) {
             if (exponents[local_start] == polynomial.exponents[incoming_start]){
-                summed_coeffs[counter] = coefficents[local_start] + polynomial.coefficents[incoming_start];
-                summed_expos[counter] = exponents[local_start] + polynomial.coefficents[incoming_start];
+                summed_coeffs[counter] = coefficients[local_start] + polynomial.coefficients[incoming_start];
+                summed_expos[counter] = exponents[local_start] + polynomial.exponents[incoming_start];
 
                 incoming_start++;
                 local_start++;
                 counter++;
             }
             else if (exponents[local_start] < polynomial.exponents[incoming_start]){
-                summed_coeffs[counter] = polynomial.coefficents[incoming_start];
-                summed_expos[counter] =  polynomial.coefficents[incoming_start];
+                summed_coeffs[counter] = polynomial.coefficients[incoming_start];
+                summed_expos[counter] =  polynomial.exponents[incoming_start];
                 incoming_start++;
                 counter++;
             }
             else{
-                summed_coeffs[counter] = coefficents[local_start];
+                summed_coeffs[counter] = coefficients[local_start];
                 summed_expos[counter] = exponents[local_start];
                 local_start++;
                 counter++;
@@ -97,6 +97,7 @@ class Polynomial{
         // }
 
         // return new Polynomial(bigger_arr);
+        return new Polynomial(summed_coeffs, summed_expos);
     }
 
     public double evaluate(double value){
