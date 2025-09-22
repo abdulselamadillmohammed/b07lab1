@@ -116,4 +116,16 @@ class Polynomial{
         return is_root;
     }
 
+
+    // For testing
+    public void getCoefficients(){
+        for (int i = 0; i < coefficients.length;i++){
+            System.out.println(coefficients[i]);
+        }
+    }   
+    public void getExponents(){
+        for (int i = 0; i < exponents.length;i++){
+            System.out.println(exponents[i]);
+        }
+    }
 }
